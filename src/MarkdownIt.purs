@@ -1,6 +1,7 @@
 module MarkdownIt
   ( renderString
   , MarkdownIt
+  , Preset(..)
   , MarkdownItOptions
   , newMarkdownIt
   , render
@@ -20,13 +21,23 @@ foreign import renderString_ :: EffectFn1 String String
 
 data MarkdownIt
 
+data Preset
+  = CommonMark
+  | Default
+  | Zero
+
+instance showPreset :: Show Preset where
+  show = case _ of
+    CommonMark -> "commonmark"
+    Default -> "default"
+    Zero -> "zero"
+
 data MarkdownItOptions
 
 -- | Create a new MarkdownIt instance
-newMarkdownIt :: O.Options MarkdownItOptions -> Effect MarkdownIt
-newMarkdownIt opts = runEffectFn1 newMarkdownIt_ $ O.options opts
-foreign import newMarkdownIt_ :: EffectFn1 Foreign MarkdownIt
-
+newMarkdownIt :: Preset -> O.Options MarkdownItOptions -> Effect MarkdownIt
+newMarkdownIt preset opts = runEffectFn2 newMarkdownIt_ (show preset) $ O.options opts
+foreign import newMarkdownIt_ :: EffectFn2 String Foreign MarkdownIt
 
 -- | Use an existing MarkdownIt instance to render markdown string to html
 -- | string.

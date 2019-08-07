@@ -5,8 +5,8 @@ exports.renderString_ = function(input) {
   return md.render(input);
 };
 
-exports.newMarkdownIt_ = function(opts) {
-  return new MarkdownIt(opts);
+exports.newMarkdownIt_ = function(preset, opts) {
+  return new MarkdownIt(preset, opts);
 };
 
 exports.render_ = function(input, md) {
