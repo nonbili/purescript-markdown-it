@@ -1,0 +1,49 @@
+module Test.Main where
+
+import Prelude
+
+import Data.Options ((:=))
+import Data.Traversable (sequence_)
+import Data.Tuple (Tuple(..))
+import Effect (Effect)
+import Effect.Class (liftEffect)
+import Jest (expectToEqual, test)
+import MarkdownIt (Preset(..), html, newMarkdownIt, render, renderString)
+
+cases :: Array (Tuple String String)
+cases =
+  [ Tuple "# head" "<h1>head</h1>\n"
+  , Tuple
+      "<https://purescript.org>"
+      "<p><a href=\"https://purescript.org\">https://purescript.org</a></p>\n"
+  ]
+
+main :: Effect Unit
+main = do
+  test "renderString" $ do
+    sequence_ $ cases <#> \(Tuple input output) -> do
+      html <- liftEffect $ renderString input
+      expectToEqual html output
+
+  test "newMarkdownIt and render" $ do
+    md <- liftEffect $ newMarkdownIt Default mempty
+    sequence_ $ cases <#> \(Tuple input output) -> do
+      html <- liftEffect $ render input md
+      expectToEqual html output
+
+  test "default is safe render" $ do
+    md <- liftEffect $ newMarkdownIt Default mempty
+    let
+      input = "<script>alert()</script>"
+      output = "<p>&lt;script&gt;alert()&lt;/script&gt;</p>\n"
+    html <- liftEffect $ render input md
+    expectToEqual html output
+
+  test "set html option to do unsafe render" $ do
+    md <- liftEffect $ newMarkdownIt Default $
+      html := true
+    let
+      input = "<script>alert()</script>"
+      output = "<script>alert()</script>"
+    html <- liftEffect $ render input md
+    expectToEqual html output
