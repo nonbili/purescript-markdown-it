@@ -1,0 +1,13 @@
+{
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "postinstall": "bower install",
+    "test": "pulp build -I test -- +RTS -N2 -RTS && jest"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "markdown-it": "^9.0.1"
+  }
+}

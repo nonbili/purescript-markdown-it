@@ -1,0 +1,30 @@
+{
+  "name": "purescript-markdown-it",
+  "description": "A purescript wrapper of markdown-it",
+  "keywords": [
+    "purescript",
+    "markdown",
+    "markdown-it"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nonbili/purescript-markdown-it.git"
+  },
+  "license": "BSD-3-Clause",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^4.1.0",
+    "purescript-effect": "^2.0.1",
+    "purescript-options": "^5.0.0"
+  },
+  "devDependencies": {
+    "purescript-psci-support": "^4.0.0",
+    "purescript-jest": "^0.3.0",
+    "purescript-debug": "^4.0.0"
+  }
+}
