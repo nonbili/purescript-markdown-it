@@ -12,3 +12,7 @@ exports.newMarkdownIt_ = function(preset, opts) {
 exports.render_ = function(input, md) {
   return md.render(input);
 };
+
+exports.renderInline_ = function(input, md) {
+  return md.renderInline(input);
+};

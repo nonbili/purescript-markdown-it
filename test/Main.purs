@@ -8,7 +8,7 @@ import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class (liftEffect)
 import Jest (expectToEqual, test)
-import MarkdownIt (Preset(..), html, newMarkdownIt, render, renderString)
+import MarkdownIt (Preset(..), html, linkify, newMarkdownIt, render, renderString)
 
 cases :: Array (Tuple String String)
 cases =
@@ -45,5 +45,23 @@ main = do
     let
       input = "<script>alert()</script>"
       output = "<script>alert()</script>"
+    html <- liftEffect $ render input md
+    expectToEqual html output
+
+  test "renderInline" $ do
+    md <- liftEffect $ newMarkdownIt Default $
+      html := true
+    let
+      input = "# head"
+      output = "<h1>head</h1>\n"
+    html <- liftEffect $ render input md
+    expectToEqual html output
+
+  test "linkify" $ do
+    md <- liftEffect $ newMarkdownIt Default $
+      linkify := true
+    let
+      input = "https://purescript.org"
+      output = "<p><a href=\"https://purescript.org\">https://purescript.org</a></p>\n"
     html <- liftEffect $ render input md
     expectToEqual html output

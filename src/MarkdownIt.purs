@@ -13,6 +13,7 @@ module MarkdownIt
   , highlight
   , newMarkdownIt
   , render
+  , renderInline
   ) where
 
 import Prelude
@@ -78,3 +79,8 @@ foreign import newMarkdownIt_ :: EffectFn2 String Foreign MarkdownIt
 render :: String -> MarkdownIt -> Effect String
 render = runEffectFn2 render_
 foreign import render_ :: EffectFn2 String MarkdownIt String
+
+-- | Similar to `render`, but without wrapping `<p>`.
+renderInline :: String -> MarkdownIt -> Effect String
+renderInline = runEffectFn2 renderInline_
+foreign import renderInline_ :: EffectFn2 String MarkdownIt String
