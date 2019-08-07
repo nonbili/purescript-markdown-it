@@ -6,7 +6,8 @@
     "test": "pulp build -I test && jest"
   },
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "markdown-it-imsize": "^2.0.1"
   },
   "dependencies": {
     "markdown-it": "^9.0.1"

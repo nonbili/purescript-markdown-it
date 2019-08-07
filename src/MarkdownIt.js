@@ -16,3 +16,7 @@ exports.render_ = function(input, md) {
 exports.renderInline_ = function(input, md) {
   return md.renderInline(input);
 };
+
+exports.usePlugin_ = function(plugin, md) {
+  md.use(require(plugin));
+};
