@@ -3,6 +3,14 @@ module MarkdownIt
   , MarkdownIt
   , Preset(..)
   , MarkdownItOptions
+  , html
+  , xhtmlOut
+  , breaks
+  , langPrefix
+  , linkify
+  , typographer
+  , quotes
+  , highlight
   , newMarkdownIt
   , render
   ) where
@@ -32,7 +40,33 @@ instance showPreset :: Show Preset where
     Default -> "default"
     Zero -> "zero"
 
+-- | Check https://markdown-it.github.io/markdown-it/#MarkdownIt.new to see
+-- | available options.
 data MarkdownItOptions
+
+html :: O.Option MarkdownItOptions Boolean
+html = O.opt "html"
+
+xhtmlOut :: O.Option MarkdownItOptions Boolean
+xhtmlOut = O.opt "xhtmlOut"
+
+breaks :: O.Option MarkdownItOptions Boolean
+breaks = O.opt "breaks"
+
+langPrefix :: O.Option MarkdownItOptions String
+langPrefix = O.opt "langPrefix"
+
+linkify :: O.Option MarkdownItOptions Boolean
+linkify = O.opt "linkify"
+
+typographer :: O.Option MarkdownItOptions Boolean
+typographer = O.opt "typographer"
+
+quotes :: O.Option MarkdownItOptions String
+quotes = O.opt "quotes"
+
+highlight :: O.Option MarkdownItOptions (String -> String -> String)
+highlight = O.opt "highlight"
 
 -- | Create a new MarkdownIt instance
 newMarkdownIt :: Preset -> O.Options MarkdownItOptions -> Effect MarkdownIt
