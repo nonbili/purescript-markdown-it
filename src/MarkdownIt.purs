@@ -14,7 +14,7 @@ module MarkdownIt
   , newMarkdownIt
   , render
   , renderInline
-  , usePlugin
+  , use
   ) where
 
 import Prelude
@@ -86,9 +86,7 @@ renderInline :: MarkdownIt -> String -> Effect String
 renderInline = runEffectFn2 renderInline_
 foreign import renderInline_ :: EffectFn2 MarkdownIt String String
 
--- | Load a plugin to an existing MarkdownIt instance. Different from the `use`
--- | method in `markdown-it`, the first argument here is the package name, not
--- | `require('plugin-name')`.
-usePlugin :: String -> MarkdownIt -> Effect MarkdownIt
-usePlugin = runEffectFn2 usePlugin_
-foreign import usePlugin_ :: EffectFn2 String MarkdownIt MarkdownIt
+-- | Load a plugin to an existing MarkdownIt instance.
+use :: Foreign -> MarkdownIt -> Effect MarkdownIt
+use = runEffectFn2 use_
+foreign import use_ :: EffectFn2 Foreign MarkdownIt MarkdownIt
