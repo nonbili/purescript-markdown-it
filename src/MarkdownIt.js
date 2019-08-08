@@ -19,4 +19,5 @@ exports.renderInline_ = function(input, md) {
 
 exports.usePlugin_ = function(plugin, md) {
   md.use(require(plugin));
+  return md;
 };

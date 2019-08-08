@@ -67,9 +67,8 @@ main = do
     expectToEqual html output
 
   test "usePlugin markdown-it-imsize" $ do
-    md <- liftEffect $ newMarkdownIt Default $
-      linkify := true
-    liftEffect $ usePlugin "markdown-it-imsize" md
+    md <- liftEffect $ (newMarkdownIt Default $ linkify := true) >>=
+      usePlugin "markdown-it-imsize"
     let
       input = "![](src =32x32)"
       output = "<p><img src=\"src\" alt=\"\" width=\"32\" height=\"32\"></p>\n"
