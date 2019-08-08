@@ -28,7 +28,7 @@ main = do
   test "newMarkdownIt and render" $ do
     md <- liftEffect $ newMarkdownIt Default mempty
     sequence_ $ cases <#> \(Tuple input output) -> do
-      html <- liftEffect $ render input md
+      html <- liftEffect $ render md input
       expectToEqual html output
 
   test "default is safe render" $ do
@@ -36,7 +36,7 @@ main = do
     let
       input = "<script>alert()</script>"
       output = "<p>&lt;script&gt;alert()&lt;/script&gt;</p>\n"
-    html <- liftEffect $ render input md
+    html <- liftEffect $ render md input
     expectToEqual html output
 
   test "set html option to do unsafe render" $ do
@@ -45,16 +45,15 @@ main = do
     let
       input = "<script>alert()</script>"
       output = "<script>alert()</script>"
-    html <- liftEffect $ render input md
+    html <- liftEffect $ render md input
     expectToEqual html output
 
   test "renderInline" $ do
-    md <- liftEffect $ newMarkdownIt Default $
-      html := true
+    md <- liftEffect $ newMarkdownIt Default mempty
     let
       input = "# head"
       output = "<h1>head</h1>\n"
-    html <- liftEffect $ render input md
+    html <- liftEffect $ render md input
     expectToEqual html output
 
   test "linkify" $ do
@@ -63,7 +62,7 @@ main = do
     let
       input = "https://purescript.org"
       output = "<p><a href=\"https://purescript.org\">https://purescript.org</a></p>\n"
-    html <- liftEffect $ render input md
+    html <- liftEffect $ render md input
     expectToEqual html output
 
   test "usePlugin markdown-it-imsize" $ do
@@ -72,5 +71,5 @@ main = do
     let
       input = "![](src =32x32)"
       output = "<p><img src=\"src\" alt=\"\" width=\"32\" height=\"32\"></p>\n"
-    html <- liftEffect $ render input md
+    html <- liftEffect $ render md input
     expectToEqual html output

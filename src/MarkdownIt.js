@@ -9,11 +9,11 @@ exports.newMarkdownIt_ = function(preset, opts) {
   return new MarkdownIt(preset, opts);
 };
 
-exports.render_ = function(input, md) {
+exports.render_ = function(md, input) {
   return md.render(input);
 };
 
-exports.renderInline_ = function(input, md) {
+exports.renderInline_ = function(md, input) {
   return md.renderInline(input);
 };
 

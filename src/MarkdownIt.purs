@@ -77,14 +77,14 @@ foreign import newMarkdownIt_ :: EffectFn2 String Foreign MarkdownIt
 
 -- | Use an existing MarkdownIt instance to render markdown string to html
 -- | string.
-render :: String -> MarkdownIt -> Effect String
+render :: MarkdownIt -> String -> Effect String
 render = runEffectFn2 render_
-foreign import render_ :: EffectFn2 String MarkdownIt String
+foreign import render_ :: EffectFn2 MarkdownIt String String
 
 -- | Similar to `render`, but without wrapping `<p>`.
-renderInline :: String -> MarkdownIt -> Effect String
+renderInline :: MarkdownIt -> String -> Effect String
 renderInline = runEffectFn2 renderInline_
-foreign import renderInline_ :: EffectFn2 String MarkdownIt String
+foreign import renderInline_ :: EffectFn2 MarkdownIt String String
 
 -- | Load a plugin to an existing MarkdownIt instance. Different from the `use`
 -- | method in `markdown-it`, the first argument here is the package name, not
