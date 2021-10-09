@@ -8,7 +8,7 @@ import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class (liftEffect)
 import Jest (expectToEqual, test)
-import MarkdownIt (Preset(..), html, linkify, newMarkdownIt, render, renderString, use)
+import MarkdownIt (Preset(..), html, linkify, highlight, newMarkdownIt, render, renderString, use)
 import Node.Globals as Globals
 
 cases :: Array (Tuple String String)
@@ -63,6 +63,15 @@ main = do
     let
       input = "https://purescript.org"
       output = "<p><a href=\"https://purescript.org\">https://purescript.org</a></p>\n"
+    html <- liftEffect $ render md input
+    expectToEqual html output
+
+  test "highlight" $ do
+    md <- liftEffect $ newMarkdownIt Default $
+      highlight := \str lang -> "<pre>" <> lang <> " - " <> str <> "</pre>"
+    let
+      input = "```js\nalert()\n```"
+      output = "<pre>js - alert()\n</pre>\n"
     html <- liftEffect $ render md input
     expectToEqual html output
 

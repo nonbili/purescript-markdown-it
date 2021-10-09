@@ -6,6 +6,10 @@ exports.renderString_ = function(input) {
 };
 
 exports.newMarkdownIt_ = function(preset, opts) {
+  if (opts.highlight) {
+    const fn = opts.highlight;
+    opts.highlight = (str, lang) => fn(str)(lang);
+  }
   return new MarkdownIt(preset, opts);
 };
 
