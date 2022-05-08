@@ -1,14 +1,27 @@
 {
   "license": "BSD-3-Clause",
+  "type": "module",
   "scripts": {
     "build": "spago build -u '--strict --stash +RTS -N2 -RTS'",
-    "test": "spago build && jest"
+    "test": "spago build && NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "devDependencies": {
-    "jest": "^23.6.0",
+    "jest": "^25.1.0",
     "markdown-it-imsize": "^2.0.1"
   },
   "dependencies": {
     "markdown-it": "^9.0.1"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "output"
+    ],
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/bower_components/",
+      "/\\.spago/"
+    ]
   }
 }

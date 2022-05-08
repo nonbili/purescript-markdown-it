@@ -9,7 +9,6 @@ import Effect (Effect)
 import Effect.Class (liftEffect)
 import Jest (expectToEqual, test)
 import MarkdownIt (Preset(..), html, linkify, highlight, newMarkdownIt, render, renderString, use)
-import Node.Globals as Globals
 
 cases :: Array (Tuple String String)
 cases =
@@ -72,14 +71,5 @@ main = do
     let
       input = "```js\nalert()\n```"
       output = "<pre>js - alert()\n</pre>\n"
-    html <- liftEffect $ render md input
-    expectToEqual html output
-
-  test "use markdown-it-imsize" $ do
-    md <- liftEffect $ (newMarkdownIt Default $ linkify := true) >>=
-      use (Globals.unsafeRequire "markdown-it-imsize")
-    let
-      input = "![](src =32x32)"
-      output = "<p><img src=\"src\" alt=\"\" width=\"32\" height=\"32\"></p>\n"
     html <- liftEffect $ render md input
     expectToEqual html output
