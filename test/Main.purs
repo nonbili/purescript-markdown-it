@@ -8,7 +8,7 @@ import Data.Tuple (Tuple(..))
 import Effect (Effect)
 import Effect.Class (liftEffect)
 import Jest (expectToEqual, test)
-import MarkdownIt (Preset(..), html, linkify, highlight, newMarkdownIt, render, renderString, use)
+import MarkdownIt (Preset(..), html, linkify, highlight, newMarkdownIt, render, renderString)
 
 cases :: Array (Tuple String String)
 cases =
