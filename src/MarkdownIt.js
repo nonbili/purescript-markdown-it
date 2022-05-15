@@ -1,11 +1,11 @@
-var MarkdownIt = require("markdown-it");
+import MarkdownIt from "markdown-it";
 
-exports.renderString_ = function(input) {
+export function renderString_(input) {
   var md = new MarkdownIt();
   return md.render(input);
 };
 
-exports.newMarkdownIt_ = function(preset, opts) {
+export function newMarkdownIt_(preset, opts) {
   if (opts.highlight) {
     const fn = opts.highlight;
     opts.highlight = (str, lang) => fn(str)(lang);
@@ -13,14 +13,14 @@ exports.newMarkdownIt_ = function(preset, opts) {
   return new MarkdownIt(preset, opts);
 };
 
-exports.render_ = function(md, input) {
+export function render_(md, input) {
   return md.render(input);
 };
 
-exports.renderInline_ = function(md, input) {
+export function renderInline_(md, input) {
   return md.renderInline(input);
 };
 
-exports.use_ = function(plugin, md) {
+export function use_(plugin, md) {
   return md.use(plugin);
 };
